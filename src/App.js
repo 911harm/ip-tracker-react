@@ -1,20 +1,13 @@
 import React from 'react';
 import Footer from './components/Footer'
-
+import Header from './components/Header'
+import GlobalStyles from './GlobalStyles';
 function App() {
   return (
     <React.Fragment>
-      IP Address Tracker
-  
-      Search for any IP address or domain
-    
-      IP Address
-      Location
-      Timezone
-        UTC 
-         {/* add offset value dynamically using the API  */}
-      ISP
+      <Header title={"IP Address Tracker"}></Header>
       <Footer></Footer>
+      <GlobalStyles />
     </React.Fragment>
   );
 }
