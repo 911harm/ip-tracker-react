@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
- 
+
 const DataStyled = styled.div`
  width:100%;
  margin:auto;
@@ -12,6 +12,8 @@ const DataStyled = styled.div`
     ul{
         list-style:none;
         padding:0;
+        width: 95%;
+        margin: auto;
         li{
             display:block;
             h3{
@@ -29,11 +31,13 @@ const DataStyled = styled.div`
         }
     }
     @media screen and (min-width:500px){
-        width:70%;
+        width:80%;
         height:30vh;
         max-height:150px;
         display:flex;
+        justify-content: center;
         ul{
+            width: 95%;
             align-self:center;
             display:flex;
             padding: 10px;
@@ -53,29 +57,30 @@ const DataStyled = styled.div`
         }
     }
 `
- 
-export default function Data() {
+
+export default function Data({ data }) {
+    const { ip, location, isp } = data
     return (
         <DataStyled>
             <ul>
                 <li>
                     <h3>IP Address</h3>
-                    <p>198.88.88.7</p>
+                    <p>{ip}</p>
                 </li>
                 <li>
-                    <h3>Location </h3> 
-                    <p>broklyn ayer todo</p>
+                    <h3>Location </h3>
+                    <p>{location.city}, {location.region}</p>
                 </li>
                 <li>
                     <h3>Timezone</h3>
-                    <p>UTC-875</p>
+                    <p>UTC{location.timezone}</p>
                 </li>
                 <li>
                     <h3>ISP</h3>
-                    <p>Space-startlink</p>
+                    <p>{isp}</p>
                 </li>
             </ul>
-         {/* add offset value dynamically using the API  */}
+            {/* add offset value dynamically using the API  */}
         </DataStyled>
     )
 }

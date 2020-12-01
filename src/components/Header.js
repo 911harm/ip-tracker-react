@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import Search from './Search';
 import Data from './Data';
@@ -21,11 +21,22 @@ padding:20px;
 `
 
 export default function Header({ title }) {
+    const [data, setData] = useState(false)
+    useEffect(() => {
+        fetch('https://geo.ipify.org/api/v1?apiKey=at_oOhIBWtFLKXwQfDmjfqmVU3VXNkZw')
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                setData(data)
+            });
+
+
+    }, [])
     return (
         <HeaderStyled>
             <h1>{title}</h1>
-            <Search/>
-            <Data></Data>
+            <Search />
+            <Data data={data}></Data>
         </HeaderStyled>
     )
 }
