@@ -40,11 +40,11 @@ margin:auto;
     }
 `
 
-export default function Serach() {
+export default function Serach({handlerSearch ,searchString, onClick}) {
     return (
         <SearchStyled>
-            <input placeholder="Search for any IP address or domain" type="text"/>
-            <button>
+            <input onChange={handlerSearch} value={searchString} placeholder="Search for any IP address or domain" type="text"/>
+            <button onClick={onClick}>
                 <img src="./images/icon-arrow.svg" alt="buscar"/>
             </button>
         </SearchStyled>

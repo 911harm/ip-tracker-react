@@ -21,21 +21,46 @@ padding:20px;
 `
 
 export default function Header({ title }) {
-    const [data, setData] = useState(false)
+    const dummy = {
+        ip: "0.0.0.0",
+        isp: "Unknown",
+        location: {
+            city: "Unknown",
+            region: "Unknown",
+            timezone: "Unknown"
+        }
+    }
+    const [data, setData] = useState(dummy)
+    const [searchString, setSearchString] = useState(data.ip)
+
     useEffect(() => {
         fetch('https://geo.ipify.org/api/v1?apiKey=at_oOhIBWtFLKXwQfDmjfqmVU3VXNkZw')
             .then(response => response.json())
             .then(data => {
                 console.log(data)
                 setData(data)
+                setSearchString(data.ip)
             });
-
-
     }, [])
+
+    const handlerSearch = (e) => {
+        console.log(e.target.value)
+        setSearchString(e.target.value)
+
+    }
+    const btnSearch = () => {
+        fetch(`https://geo.ipify.org/api/v1?apiKey=at_oOhIBWtFLKXwQfDmjfqmVU3VXNkZw&ipAddress=${searchString}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                setData(data)
+                setSearchString(data.ip)
+            })
+    }
     return (
         <HeaderStyled>
             <h1>{title}</h1>
-            <Search />
+            <Search handlerSearch={handlerSearch} searchString={searchString} onClick={btnSearch} />
             <Data data={data}></Data>
         </HeaderStyled>
     )
