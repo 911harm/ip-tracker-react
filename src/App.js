@@ -8,7 +8,6 @@ function App() {
   return (
     <React.Fragment>
       <Header title={"IP Address Tracker"}></Header>
-      <div style={{ height: "180px" }}id="mapid"></div>
       <Footer></Footer>
       <GlobalStyles />
     </React.Fragment>
