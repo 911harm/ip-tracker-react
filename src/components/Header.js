@@ -8,7 +8,7 @@ const HeaderStyled = styled.div`
 background-image: url("./images/pattern-bg.png");
 width: 100%;
 height:200px;
-padding:20px;
+/* padding:20px; */
     h1{
         font-size: 20px;
         margin:0;
@@ -38,31 +38,37 @@ export default function Header({ title }) {
             .then(data => {
                 setData(data)
                 setSearchString(data.ip)
-                setCords([data.location.lat,data.location.lng])
+                setCords([data.location.lat, data.location.lng])
             });
-        }, [])
-        
-        const handlerSearch = (e) => {
-            setSearchString(e.target.value)
-            
-        }
-        const btnSearch = () => {
-            fetch(`https://geo.ipify.org/api/v1?apiKey=at_oOhIBWtFLKXwQfDmjfqmVU3VXNkZw&ipAddress=${searchString}`)
+    }, [])
+
+    const handlerSearch = (e) => {
+        setSearchString(e.target.value)
+
+    }
+    const btnSearch = () => {
+        fetch(`https://geo.ipify.org/api/v1?apiKey=at_oOhIBWtFLKXwQfDmjfqmVU3VXNkZw&ipAddress=${searchString}`)
             .then(response => response.json())
             .then(data => {
+                if (data.code === 422) {
+                    return setCords(null)
+                }
                 setData(data)
                 setSearchString(data.ip)
                 setCords(null)
-                setCords([data.location.lat,data.location.lng])
-            }).catch(()=>setData(dummy))
+                setCords([data.location.lat, data.location.lng])
+            }).catch((err) => {
+                console.log(err)
+            })
     }
     return (
         <HeaderStyled>
             <h1>{title}</h1>
             <Search handlerSearch={handlerSearch} searchString={searchString} onClick={btnSearch} />
             <Data data={data}></Data>
-            {cords &&
-            <MapLocation position={cords}></MapLocation>
+            {cords
+                ? <MapLocation position={cords}></MapLocation>
+                : <div>...Check the IP</div>
             }
         </HeaderStyled>
     )

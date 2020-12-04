@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 const DataStyled = styled.div`
- width:100%;
+ width:80%;
  margin:auto;
  height:250px;
  background:white;

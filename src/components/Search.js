@@ -40,12 +40,17 @@ margin:auto;
     }
 `
 
-export default function Serach({handlerSearch ,searchString, onClick}) {
+export default function Serach({ handlerSearch, searchString, onClick }) {
+    const handlerEnter = (e) => {
+        if(e.code==="Enter"){
+            onClick();
+        }
+    }
     return (
         <SearchStyled>
-            <input onChange={handlerSearch} value={searchString} placeholder="Search for any IP address or domain" type="text"/>
-            <button onClick={onClick}>
-                <img src="./images/icon-arrow.svg" alt="buscar"/>
+            <input onKeyDown={handlerEnter} onChange={handlerSearch} value={searchString} placeholder="Search for any IP address or domain" type="text" />
+            <button onClick={onClick} >
+                <img src="./images/icon-arrow.svg" alt="buscar" />
             </button>
         </SearchStyled>
     )
